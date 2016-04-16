@@ -34,7 +34,7 @@ public class Grupo implements Serializable {
     private Boolean ativo = true;
     @ManyToOne
     @JoinColumn(name = "grupo_pai")
-    private Grupo grupo;
+    private Grupo grupoPai;
 
     public Long getId() {
         return id;
@@ -60,12 +60,12 @@ public class Grupo implements Serializable {
         this.ativo = ativo;
     }
 
-    public Grupo getGrupo() {
-        return grupo;
+    public Grupo getGrupoPai() {
+        return grupoPai;
     }
 
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
+    public void setGrupoPai(Grupo grupoPai) {
+        this.grupoPai = grupoPai;
     }
 
     @Override

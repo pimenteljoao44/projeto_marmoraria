@@ -5,6 +5,7 @@
  */
 package controle;
 
+import converter.ConverterGenerico;
 import entidades.Grupo;
 import facade.GrupoFacade;
 import java.io.Serializable;
@@ -24,6 +25,14 @@ public class GrupoControle implements Serializable {
     private Grupo grupo;
     @Inject
     private GrupoFacade grupoFacade;
+    private ConverterGenerico converterGenerico;
+    
+    public ConverterGenerico converter(){
+        if(converterGenerico==null){
+            converterGenerico = new ConverterGenerico(grupoFacade);
+        }
+        return converterGenerico;
+    }
 
     public void novo() {
         grupo = new Grupo();

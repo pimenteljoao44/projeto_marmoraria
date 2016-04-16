@@ -9,7 +9,7 @@
 
         <ui:define name="conteudo">
 
-            <h:form>
+            <h:form rendered="#{grupoControle.grupo==null}">
                 <p:dataTable value="#{grupoControle.listagem}"
                              var="item">
 
@@ -26,7 +26,7 @@
                     </p:column>
 
                     <p:column headerText="Grupo pai">
-                        <h:outputText value="#{item.grupo.nome}"/>
+                        <h:outputText value="#{item.grupoPai.nome}"/>
                     </p:column>
 
                     <p:column headerText="Opções">
@@ -45,7 +45,12 @@
                     </p:column>
 
                 </p:dataTable>
+                <p:commandButton value="Novo"
+                                 action="#{grupoControle.novo()}"
+                                 ajax="false"/>
             </h:form>
+            
+            <ui:include src="form.xhtml"/>
 
         </ui:define>
 
