@@ -21,36 +21,46 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class PessoaControle implements Serializable{
+public class PessoaControle implements Serializable {
+
     @Inject
     private PessoaFacade pessoaFacade;
     private Pessoa pessoa;
     private String tipoPessoa;
-    
-    public void novo(){
-        tipoPessoa="PF";
+
+    public void novo() {
+        tipoPessoa = "PF";
         criaPessoa();
     }
-    
-    public void criaPessoa(){
-        if(tipoPessoa.equals("PF")){
+
+    public void criaPessoa() {
+        if (tipoPessoa.equals("PF")) {
             pessoa = new PessoaFisica();
-        }else{
+        } else {
             pessoa = new PessoaJuridica();
         }
     }
-    
-    public String salvar(){
+
+    public void carregaPessoa(Pessoa p) {
+        if (p instanceof PessoaFisica) {
+            tipoPessoa = "PF";
+        } else {
+            tipoPessoa = "PJ";
+        }
+        pessoa = p;
+    }
+
+    public String salvar() {
         pessoaFacade.salvar(pessoa);
         return "list?faces-redirect=true";
     }
-    
-    public String excluir(Pessoa p){
+
+    public String excluir(Pessoa p) {
         pessoaFacade.excluir(p);
         return "list?faces-redirect=true";
     }
-    
-    public List<Pessoa> getListagem(){
+
+    public List<Pessoa> getListagem() {
         return pessoaFacade.listar();
     }
 
@@ -69,6 +79,5 @@ public class PessoaControle implements Serializable{
     public void setTipoPessoa(String tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
-    
-    
+
 }

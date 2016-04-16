@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form rendered="#{pessoaControle.pessoa==null}">
+                <p:dataTable value="#{pessoaControle.listagem}"
+                             var="item">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{item.nome}"/>
+                    </p:column>
+                    <p:column headerText="Fone">
+                        <h:outputText value="#{item.fone}"/>
+                    </p:column>
+                    <p:column headerText="Endereço">
+                        <h:outputText value="#{item.endereco}"/>
+                    </p:column>
+                    <p:column headerText="Opções">
+                        <p:commandButton value="Alterar"
+                                         action="#{pessoaControle.carregaPessoa(item)}"
+                                         ajax="false"/>
+                        <p:commandButton value="Excluir"
+                                         action="#{pessoaControle.excluir(item)}">
+                            <p:confirm header="Confirmação" 
+                                       message="Deseja excluir o registro?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Novo"
+                                 action="#{pessoaControle.novo()}"
+                                 ajax="false"/>
+            </h:form>
+            <ui:include src="form.xhtml"/>
+        </ui:define>
+
+    </ui:composition>
+</html>
