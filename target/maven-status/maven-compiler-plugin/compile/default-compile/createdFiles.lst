@@ -1,9 +1,0 @@
-facade/PessoaFacade.class
-persistencia/TransactionInterceptor.class
-facade/AbstractFacade.class
-entidades/PessoaFisica.class
-persistencia/JpaUtil.class
-controle/PessoaControle.class
-persistencia/Transacional.class
-entidades/PessoaJuridica.class
-entidades/Pessoa.class

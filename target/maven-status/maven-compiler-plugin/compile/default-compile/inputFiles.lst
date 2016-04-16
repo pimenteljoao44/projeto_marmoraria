@@ -1,9 +1,0 @@
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/entidades/PessoaFisica.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/controle/PessoaControle.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/facade/PessoaFacade.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/facade/AbstractFacade.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/persistencia/Transacional.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/entidades/Pessoa.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/persistencia/TransactionInterceptor.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/entidades/PessoaJuridica.java
-/home/ricardo/NetBeansProjects/VendasUnipar/src/main/java/persistencia/JpaUtil.java
