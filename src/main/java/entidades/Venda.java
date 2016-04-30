@@ -7,11 +7,14 @@ package entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,16 +47,22 @@ public class Venda implements Serializable {
     @Column(name = "desconto", nullable = false)
     private BigDecimal desconto = BigDecimal.ZERO;
 
+    @Column(name = "ven_tipo", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VendaTipo vendaTipo = VendaTipo.VENDA;
+
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "venda",
             orphanRemoval = true)
-    private List<ItemVenda> itensVenda;
+    private List<ItemVenda> itensVenda = new ArrayList<>();
 
     public void addItem(ItemVenda item) throws Exception {
         item.setVenda(this);
         if (!itensVenda.contains(item)) {
-            item.getProduto().baixarEstoque(item.getQuantidade());
+            if (vendaTipo.equals(VendaTipo.VENDA)) {
+                item.getProduto().baixarEstoque(item.getQuantidade());
+            }
             itensVenda.add(item);
             calculaTotal();
         } else {
@@ -62,8 +71,8 @@ public class Venda implements Serializable {
                     + " já está adicionado na venda");
         }
     }
-    
-    public void removeItem(ItemVenda item){
+
+    public void removeItem(ItemVenda item) {
         itensVenda.remove(item);
         calculaTotal();
         item.getProduto().estornarEstoque(item.getQuantidade());

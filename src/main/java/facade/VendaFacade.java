@@ -5,8 +5,7 @@
  */
 package facade;
 
-import entidades.Grupo;
-import entidades.Pessoa;
+import entidades.Venda;
 import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,13 +16,13 @@ import persistencia.Transacional;
  * @author ricardo
  */
 @Transacional
-public class GrupoFacade extends AbstractFacade<Grupo> implements Serializable{
+public class VendaFacade extends AbstractFacade<Venda> implements Serializable{
 
     @Inject
     private EntityManager em;
     
-    public GrupoFacade() {
-        super(Grupo.class);
+    public VendaFacade() {
+        super(Venda.class);
     }
 
     @Override

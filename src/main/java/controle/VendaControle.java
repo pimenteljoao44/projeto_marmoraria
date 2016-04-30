@@ -7,9 +7,15 @@ package controle;
 
 import converter.ConverterGenerico;
 import entidades.Grupo;
-import facade.GrupoFacade;
+import entidades.ItemVenda;
+import entidades.Venda;
+import facade.VendaFacade;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,44 +26,63 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class GrupoControle implements Serializable {
+public class VendaControle implements Serializable {
 
-    private Grupo grupo;
+    private Venda venda;
     @Inject
-    private GrupoFacade grupoFacade;
+    private VendaFacade vendaFacade;
     private ConverterGenerico converterGenerico;
+    private ItemVenda itemVenda;
     
-    public ConverterGenerico converter(){
-        if(converterGenerico==null){
-            converterGenerico = new ConverterGenerico(grupoFacade);
+    public void addItem(){
+        try {
+            venda.addItem(itemVenda);
+            itemVenda = new ItemVenda();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            FacesMessage message = 
+            new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+    
+    public void removeItem(){
+        venda.removeItem(itemVenda);
+        itemVenda = new ItemVenda();
+    }
+
+    public ConverterGenerico converter() {
+        if (converterGenerico == null) {
+            converterGenerico = new ConverterGenerico(vendaFacade);
         }
         return converterGenerico;
     }
 
     public void novo() {
-        grupo = new Grupo();
+        venda = new Venda();
+        itemVenda = new ItemVenda();
     }
 
     public String salvar() {
-        grupoFacade.salvar(grupo);
+        vendaFacade.salvar(venda);
         return "list?faces-redirect=true";
     }
 
-    public String excluir(Grupo g) {
-        grupoFacade.excluir(g);
+    public String excluir(Venda v) {
+        vendaFacade.excluir(v);
         return "list?faces-redirect=true";
     }
 
-    public List<Grupo> getListagem() {
-        return grupoFacade.listar();
+    public List<Venda> getListagem() {
+        return vendaFacade.listar();
     }
 
-    public Grupo getGrupo() {
-        return grupo;
+    public Venda getVenda() {
+        return venda;
     }
 
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 
 }
