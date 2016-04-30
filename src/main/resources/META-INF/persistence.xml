@@ -6,6 +6,9 @@
     <class>entidades.PessoaFisica</class>
     <class>entidades.PessoaJuridica</class>
     <class>entidades.Grupo</class>
+    <class>entidades.Produto</class>
+    <class>entidades.Venda</class>
+    <class>entidades.ItemVenda</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/vendasunipar"/>

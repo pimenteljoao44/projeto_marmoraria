@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+
+            <h:form rendered="#{produtoControle.produto==null}">
+                <p:dataTable value="#{produtoControle.listagem}"
+                             var="item">
+
+                    <p:column headerText="ID">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{item.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Código">
+                        <h:outputText value="#{item.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Preço">
+                        <h:outputText value="#{item.preco}">
+                            <f:convertNumber minFractionDigits="2"
+                                             maxFractionDigits="2"
+                                             type="currency"
+                                             currencySymbol="R$"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Estoque">
+                        <h:outputText value="#{item.estoque}"/>
+                    </p:column>
+
+                    <p:column headerText="Ativo">
+                        <h:outputText value="#{item.ativo?'Sim':'Não'}"/>
+                    </p:column>
+
+                    <p:column headerText="Grupo">
+                        <h:outputText value="#{item.grupo.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <p:commandButton value="Alterar"
+                                         action="#{produtoControle.setProduto(item)}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Excluir"
+                                         action="#{produtoControle.excluir(item)}">
+                            
+                            <p:confirm header="Confirmação" 
+                                       message="Deseja excluir o registro?" 
+                                       icon="ui-icon-alert" />
+                            
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton value="Novo"
+                                 action="#{produtoControle.novo()}"
+                                 ajax="false"/>
+            </h:form>
+            
+            <ui:include src="form.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
