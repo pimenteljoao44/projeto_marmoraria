@@ -26,9 +26,13 @@ public class TransactionInterceptor implements Serializable {
     @AroundInvoke
     public Object intercept(InvocationContext ctx) throws Exception {
         try {
-            em.getTransaction().begin();
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
             Object resultado = ctx.proceed();
-            em.getTransaction().commit();
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().commit();
+            }
             return resultado;
         } catch (Exception ex) {
             ex.printStackTrace();

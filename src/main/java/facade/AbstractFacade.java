@@ -5,6 +5,8 @@
  */
 package facade;
 
+import entidades.MovimentaEstoque;
+import entidades.Validador;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,33 +16,39 @@ import javax.persistence.EntityManager;
  * @author ricardo
  * @param <T>
  */
-public abstract class AbstractFacade<T> implements Serializable{
-    
+public abstract class AbstractFacade<T> implements Serializable {
+
     private final Class<T> classe;
 
     public AbstractFacade(Class<T> classe) {
         this.classe = classe;
     }
-    
+
     protected abstract EntityManager getEm();
-    
-    public T salvar(T entidade){
+
+    public T salvar(T entidade) throws Exception {
+        if (entidade instanceof MovimentaEstoque) {
+            MovimentaEstoque m = (MovimentaEstoque) entidade;
+            m.movimenta();
+        }
+        if (entidade instanceof Validador) {
+            Validador v = (Validador) entidade;
+            v.validar();
+        }
         entidade = getEm().merge(entidade);
         return entidade;
     }
-    
-    public void excluir(T entidade){
+
+    public void excluir(T entidade) {
         getEm().remove(getEm().merge(entidade));
     }
-    
-    public T pesquisar(Object id){
+
+    public T pesquisar(Object id) {
         return getEm().find(classe, id);
     }
-    
-    public List<T> listar(){
-        return getEm().createQuery("FROM "+classe.getSimpleName()).getResultList();
+
+    public List<T> listar() {
+        return getEm().createQuery("FROM " + classe.getSimpleName()).getResultList();
     }
-    
-    
-    
+
 }

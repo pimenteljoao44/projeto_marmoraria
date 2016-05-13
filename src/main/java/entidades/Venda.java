@@ -19,6 +19,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,7 +31,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "venda")
-public class Venda implements Serializable {
+public class Venda implements Serializable, MovimentaEstoque, Validador {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,19 +58,36 @@ public class Venda implements Serializable {
             mappedBy = "venda",
             orphanRemoval = true)
     private List<ItemVenda> itensVenda = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Pessoa cliente;
 
     public void addItem(ItemVenda item) throws Exception {
         item.setVenda(this);
         if (!itensVenda.contains(item)) {
-            if (vendaTipo.equals(VendaTipo.VENDA)) {
-                item.getProduto().baixarEstoque(item.getQuantidade());
-            }
+            item.setPreco(item.getProduto().getPreco());
             itensVenda.add(item);
             calculaTotal();
         } else {
             throw new Exception("O produto "
                     + item.getProduto().getNome()
                     + " já está adicionado na venda");
+        }
+    }
+
+    @Override
+    public void movimenta() throws Exception {
+        if (vendaTipo.equals(VendaTipo.VENDA)) {
+            for (ItemVenda item : itensVenda) {
+                item.getProduto().baixarEstoque(item.getQuantidade());
+            }
+        }
+    }
+
+    @Override
+    public void validar() throws Exception {
+        if (itensVenda.isEmpty()) {
+            throw new Exception("Não é possivel salvar uma venda sem itens");
         }
     }
 
@@ -79,6 +98,9 @@ public class Venda implements Serializable {
     }
 
     public void calculaTotal() {
+        if (desconto == null || desconto.compareTo(total) >= 0) {
+            desconto = BigDecimal.ZERO;
+        }
         total = BigDecimal.ZERO;
         for (ItemVenda iv : itensVenda) {
             total = total.add(iv.getPreco().multiply(iv.getQuantidade()));
@@ -124,6 +146,22 @@ public class Venda implements Serializable {
 
     public void setItensVenda(List<ItemVenda> itensVenda) {
         this.itensVenda = itensVenda;
+    }
+
+    public VendaTipo getVendaTipo() {
+        return vendaTipo;
+    }
+
+    public void setVendaTipo(VendaTipo vendaTipo) {
+        this.vendaTipo = vendaTipo;
+    }
+
+    public Pessoa getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Pessoa cliente) {
+        this.cliente = cliente;
     }
 
     @Override

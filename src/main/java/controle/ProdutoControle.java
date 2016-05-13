@@ -6,11 +6,15 @@
 package controle;
 
 import converter.ConverterGenerico;
-import entidades.Grupo;
+import entidades.Pessoa;
 import entidades.Produto;
 import facade.ProdutoFacade;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -40,8 +44,14 @@ public class ProdutoControle implements Serializable {
     }
 
     public String salvar() {
-        produtoFacade.salvar(produto);
-        return "list?faces-redirect=true";
+        try {
+            produtoFacade.salvar(produto);
+            return "list?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return null;
     }
 
     public String excluir(Produto p) {
@@ -51,6 +61,10 @@ public class ProdutoControle implements Serializable {
 
     public List<Produto> getListagem() {
         return produtoFacade.listar();
+    }
+
+    public List<Produto> produtoAutoComplete(String nome) {
+        return produtoFacade.produtoAutoComplete(nome);
     }
 
     public Produto getProduto() {

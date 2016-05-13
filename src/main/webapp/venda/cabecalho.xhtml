@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:panelGrid columns="1" layout="grid" style="margin-bottom: 10px;">
+        <p:selectOneRadio value="#{vendaControle.venda.vendaTipo}"
+                          style="margin: 0 auto;">
+            <f:selectItem itemValue="VENDA" itemLabel="Venda"/>
+            <f:selectItem itemValue="ORCAMENTO" itemLabel="Orçamento"/>
+        </p:selectOneRadio>
+    </p:panelGrid>
+    <p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px;">
+
+        <p:outputLabel value="Data:" for="data"/>
+        <p:calendar id="data" 
+                    pattern="dd/MM/yyyy HH:mm:ss" disabled="true"
+                    value="#{vendaControle.venda.data}"/>
+
+        <p:outputLabel value="Cliente:" for="cliente"/>
+        <h:panelGroup>
+            <p:autoComplete id="cliente"
+                            value="#{vendaControle.venda.cliente}"
+                            converter="#{pessoaControle.converter()}"
+                            completeMethod="#{pessoaControle.pessoaAutoComplete}"
+                            var="pessoa"
+                            itemValue="#{pessoa}"
+                            itemLabel="#{pessoa.nome}"
+                            required="true"
+                            requiredMessage="O campo cliente é obrigatório"/>
+            <p:focus for="cliente" rendered="#{vendaControle.venda.cliente==null}"/>
+        </h:panelGroup>
+
+        <p:outputLabel value="Desconto:" for="desconto"/>
+        <p:inputText id="desconto" value="#{vendaControle.venda.desconto}">
+            <f:convertNumber minFractionDigits="2"
+                             maxFractionDigits="2"/>
+            <f:ajax event="keyup" listener="#{vendaControle.venda.calculaTotal()}"
+                    render="total"/>
+        </p:inputText>
+
+        <p:outputLabel value="Total:" for="total"/>
+        <p:inputText id="total"
+                     value="#{vendaControle.venda.total}"
+                     readonly="true">
+            <f:convertNumber minFractionDigits="2"
+                             maxFractionDigits="2"
+                             type="currency"
+                             currencySymbol="R$"/>
+        </p:inputText>
+
+    </p:panelGrid>
+
+</html>

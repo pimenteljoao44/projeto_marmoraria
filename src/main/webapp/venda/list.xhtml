@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+
+            <h:form rendered="#{vendaControle.venda==null}">
+                <p:dataTable value="#{vendaControle.listagem}"
+                             var="item">
+
+                    <p:column headerText="ID">
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Cliente">
+                        <h:outputText value="#{item.cliente.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Data da venda">
+                        <h:outputText value="#{item.data}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total}">
+                            <f:convertNumber minFractionDigits="2"
+                                             minIntegerDigits="2"
+                                             type="currency"
+                                             currencySymbol="R$"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Status">
+                        <h:outputText value="#{item.vendaTipo.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Opções">
+                        <p:commandButton value="Alterar"
+                                         disabled="#{item.vendaTipo=='VENDA'}"
+                                         action="#{vendaControle.setVenda(item)}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Excluir"
+                                         disabled="#{item.vendaTipo=='VENDA'}"
+                                         action="#{vendaControle.excluir(item)}">
+                            
+                            <p:confirm header="Confirmação" 
+                                       message="Deseja excluir o registro?" 
+                                       icon="ui-icon-alert" />
+                            
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton value="Novo"
+                                 action="#{vendaControle.novo()}"
+                                 ajax="false"/>
+            </h:form>
+            
+            <ui:include src="form.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

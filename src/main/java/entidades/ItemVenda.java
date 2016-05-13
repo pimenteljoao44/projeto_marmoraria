@@ -8,6 +8,7 @@ package entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class ItemVenda implements Serializable {
     @Column(name = "item_preco", nullable = false)
     private BigDecimal preco = BigDecimal.ZERO;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "prod_id", nullable = false)
     private Produto produto;
 

@@ -10,6 +10,10 @@ import entidades.Grupo;
 import facade.GrupoFacade;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,8 +43,14 @@ public class GrupoControle implements Serializable {
     }
 
     public String salvar() {
-        grupoFacade.salvar(grupo);
-        return "list?faces-redirect=true";
+        try {
+            grupoFacade.salvar(grupo);
+            return "list?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return null;
     }
 
     public String excluir(Grupo g) {

@@ -6,7 +6,6 @@
 package controle;
 
 import converter.ConverterGenerico;
-import entidades.Grupo;
 import entidades.ItemVenda;
 import entidades.Venda;
 import facade.VendaFacade;
@@ -32,23 +31,22 @@ public class VendaControle implements Serializable {
     @Inject
     private VendaFacade vendaFacade;
     private ConverterGenerico converterGenerico;
-    private ItemVenda itemVenda;
-    
-    public void addItem(){
+    private ItemVenda itemVenda = new ItemVenda();
+
+    public void addItem() {
         try {
             venda.addItem(itemVenda);
             itemVenda = new ItemVenda();
         } catch (Exception ex) {
             ex.printStackTrace();
-            FacesMessage message = 
-            new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), "");
+            FacesMessage message
+                    = new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
-    
-    public void removeItem(){
-        venda.removeItem(itemVenda);
-        itemVenda = new ItemVenda();
+
+    public void removeItem(ItemVenda i) {
+        venda.removeItem(i);
     }
 
     public ConverterGenerico converter() {
@@ -64,8 +62,14 @@ public class VendaControle implements Serializable {
     }
 
     public String salvar() {
-        vendaFacade.salvar(venda);
-        return "list?faces-redirect=true";
+        try {
+            vendaFacade.salvar(venda);
+            return "list?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return null;
     }
 
     public String excluir(Venda v) {
@@ -83,6 +87,14 @@ public class VendaControle implements Serializable {
 
     public void setVenda(Venda venda) {
         this.venda = venda;
+    }
+
+    public ItemVenda getItemVenda() {
+        return itemVenda;
+    }
+
+    public void setItemVenda(ItemVenda itemVenda) {
+        this.itemVenda = itemVenda;
     }
 
 }
