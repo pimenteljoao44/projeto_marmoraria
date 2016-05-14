@@ -6,6 +6,7 @@
 package converter;
 
 import facade.AbstractFacade;
+import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,7 +15,7 @@ import javax.faces.convert.Converter;
  *
  * @author ricardo
  */
-public class ConverterGenerico implements Converter {
+public class ConverterGenerico implements Converter, Serializable {
 
     private final AbstractFacade facade;
 
