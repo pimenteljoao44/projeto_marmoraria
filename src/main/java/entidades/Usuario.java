@@ -8,6 +8,8 @@ package entidades;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,9 @@ public class Usuario implements Serializable {
     private String login;
     @Column(name = "usu_senha", nullable = false)
     private String senha;
+    @Column(name = "usu_nivel", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private NivelAcesso nivelAcesso;
 
     public Long getId() {
         return id;
@@ -64,6 +69,14 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = Criptografia.md5(senha);
+    }
+
+    public NivelAcesso getNivelAcesso() {
+        return nivelAcesso;
+    }
+
+    public void setNivelAcesso(NivelAcesso nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
     }
 
     @Override

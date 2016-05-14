@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form rendered="#{usuarioControle.usuario!=null}">
+        
+        <p:panel header="Formulário de cadastro">
+            <p:panelGrid columns="2" layout="grid">
+                
+                <p:outputLabel value="Nome:" for="nome"/>
+                <p:inputText id="nome" 
+                             value="#{usuarioControle.usuario.nome}"/>
+                
+                <p:outputLabel value="Login:" for="login"/>
+                <p:inputText id="login" 
+                             value="#{usuarioControle.usuario.login}"/>
+                
+                <p:outputLabel value="Senha:" for="senha"/>
+                <p:password id="senha" 
+                             value="#{usuarioControle.usuario.senha}"/>
+                
+                <p:outputLabel value="Nível acesso:" for="nivel"/>
+                <p:selectOneMenu id="nivel" value="#{usuarioControle.usuario.nivelAcesso}">
+                    <f:selectItems value="#{usuarioControle.niveisAcesso}"
+                                   var="nivel"
+                                   itemValue="#{nivel}"
+                                   itemLabel="#{nivel.descricao}"/>
+                </p:selectOneMenu>
+                
+            </p:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton value="Salvar"
+                                 action="#{usuarioControle.salvar()}"
+                                 ajax="false"/>
+            </f:facet>
+        </p:panel>
+    
+    </h:form>
+    
+</html>

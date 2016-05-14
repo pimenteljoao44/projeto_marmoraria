@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form rendered="#{empresaControle.empresa!=null}">
+
+        <p:panel header="Formulário de cadastro">
+            <p:panelGrid columns="2" layout="grid">
+
+                <p:outputLabel value="Nome fantasia:" for="nome"/>
+                <p:inputText id="nome" 
+                             value="#{empresaControle.empresa.nomeFantasia}"/>
+                <p:outputLabel value="Razão social:" for="razao"/>
+                <p:inputText id="razao" 
+                             value="#{empresaControle.empresa.razaoSocial}"/>
+                <p:outputLabel value="CNPJ:" for="cnpj"/>
+                <p:inputText id="cnpj" 
+                             value="#{empresaControle.empresa.cnpj}"/>
+                <p:outputLabel value="IE:" for="ie"/>
+                <p:inputText id="ie" 
+                             value="#{empresaControle.empresa.ie}"/>
+                <p:outputLabel value="Fone:" for="fone"/>
+                <p:inputText id="fone" 
+                             value="#{empresaControle.empresa.fone}"/>
+                <p:outputLabel value="E-mail:" for="email"/>
+                <p:inputText id="email" 
+                             value="#{empresaControle.empresa.email}"/>
+                <p:outputLabel value="Endereço:" for="end"/>
+                <p:inputText id="end" 
+                             value="#{empresaControle.empresa.endereco}"/>
+                <p:outputLabel value="Cidade:" for="cid"/>
+                <p:inputText id="cid" 
+                             value="#{empresaControle.empresa.cidade}"/>
+                <p:outputLabel value="UF:" for="uf"/>
+                <p:inputText id="uf" 
+                             value="#{empresaControle.empresa.uf}"/>
+
+            </p:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton value="Salvar"
+                                 action="#{empresaControle.salvar()}"
+                                 ajax="false"/>
+            </f:facet>
+        </p:panel>
+
+    </h:form>
+
+</html>
