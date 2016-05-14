@@ -30,7 +30,7 @@ public class TransactionInterceptor implements Serializable {
                 em.getTransaction().begin();
             }
             Object resultado = ctx.proceed();
-            if (!em.getTransaction().isActive()) {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().commit();
             }
             return resultado;
