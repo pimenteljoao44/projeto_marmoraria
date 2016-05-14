@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produtos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad870e21-0bd4-4646-b4c5-e0b364ad3061">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     produto."prod_ativo" AS produto_prod_ativo,
+     produto."prod_codigo" AS produto_prod_codigo,
+     produto."prod_estoque" AS produto_prod_estoque,
+     produto."prod_nome" AS produto_prod_nome,
+     produto."prod_preco" AS produto_prod_preco,
+     produto."grupo_id" AS produto_grupo_id,
+     grupo."grupo_id" AS grupo_grupo_id,
+     grupo."grupo_ativo" AS grupo_grupo_ativo,
+     grupo."grupo_nome" AS grupo_grupo_nome,
+     grupo."grupo_pai" AS grupo_grupo_pai
+FROM
+     "public"."grupo" grupo INNER JOIN "public"."produto" produto ON grupo."grupo_id" = produto."grupo_id"]]>
+	</queryString>
+	<field name="produto_prod_ativo" class="java.lang.Boolean"/>
+	<field name="produto_prod_codigo" class="java.lang.String"/>
+	<field name="produto_prod_estoque" class="java.math.BigDecimal"/>
+	<field name="produto_prod_nome" class="java.lang.String"/>
+	<field name="produto_prod_preco" class="java.math.BigDecimal"/>
+	<field name="produto_grupo_id" class="java.lang.Long"/>
+	<field name="grupo_grupo_id" class="java.lang.Long"/>
+	<field name="grupo_grupo_ativo" class="java.lang.Boolean"/>
+	<field name="grupo_grupo_nome" class="java.lang.String"/>
+	<field name="grupo_grupo_pai" class="java.lang.Long"/>
+	<variable name="TOTAL_PRODUTOS" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{TOTAL_PRODUTOS}+new Integer("1")]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer("0")]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="53" uuid="5b03ff7f-edce-4936-bf0c-bc6f2bb39e5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATORIO DE PRODUTOS CADASTRADOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="142" height="20" backcolor="#EAEAEA" uuid="821bbc93-2481-479b-acd5-e408c5621e8d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" backcolor="#EAEAEA" uuid="2e641721-b038-4faa-a76a-b77082c35011"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="242" y="0" width="100" height="20" backcolor="#EAEAEA" uuid="36aea31a-6dbe-4bcc-a6d7-53d0cf4a538b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estoque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="342" y="0" width="100" height="20" backcolor="#EAEAEA" uuid="ac9c7615-9951-4cd1-b1d2-c7c64d639c6b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="442" y="0" width="113" height="20" backcolor="#EAEAEA" uuid="c54512b1-3a64-45ea-888b-84542189119d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="142" height="20" uuid="7244f55d-d696-40af-ac66-e8ef5b973cc1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produto_prod_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="8ffef19f-9ae0-4b48-b9a5-f8f4ba95ddaf"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produto_prod_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="0" width="100" height="20" uuid="c8255cc2-23a5-47a5-994a-b07631bcf1f1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produto_prod_estoque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="0" width="100" height="20" uuid="4fa1b692-a53f-4327-b823-264944ece8ad"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{produto_prod_preco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="113" height="20" uuid="e5d1a685-6a64-4b41-8af8-33082ae8f7a1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{grupo_grupo_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="cb062e86-6590-4cf4-af44-2ab9ccdfce38"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de produtos listados: " + $V{TOTAL_PRODUTOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
