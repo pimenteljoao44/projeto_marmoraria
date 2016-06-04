@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="grupos" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7de79c4-e685-4b65-9705-310ae35e04a1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     grupo."grupo_id" AS grupo_grupo_id,
+     grupo."grupo_ativo" AS grupo_grupo_ativo,
+     grupo."grupo_nome" AS grupo_grupo_nome,
+     grupo."grupo_pai" AS grupo_grupo_pai
+FROM
+     "public"."grupo" grupo]]>
+	</queryString>
+	<field name="grupo_grupo_id" class="java.lang.Long"/>
+	<field name="grupo_grupo_ativo" class="java.lang.Boolean"/>
+	<field name="grupo_grupo_nome" class="java.lang.String"/>
+	<field name="grupo_grupo_pai" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="53" uuid="41e0eb80-d9f8-491a-aa3b-41d6e5ef399d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATORIO DE GRUPOS CADASTRADOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" backcolor="#EAEAEA" uuid="a66f7cb4-00bb-4108-8e5c-e382ec656212"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="355" height="20" backcolor="#EAEAEA" uuid="c7594af1-0396-475a-89cd-b8cd995f6d5f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="455" y="0" width="100" height="20" backcolor="#EAEAEA" uuid="6e4f5921-fc97-41fd-bff4-144432d569af"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ativo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="0cb628ec-0515-4733-a579-10a3ad68ada5"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$F{grupo_grupo_ativo}?
+$F{grupo_grupo_id}:
+"<span style=\"color:#FF0000;font-weight:bold;\">"+$F{grupo_grupo_id}+"</span>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="355" height="20" uuid="d4b663cf-08cf-4403-826e-3cc08f337f2d"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$F{grupo_grupo_ativo}?
+$F{grupo_grupo_nome}:
+"<span style=\"color:#FF0000;font-weight:bold;\">"+$F{grupo_grupo_nome}+"</span>"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="455" y="0" width="100" height="20" uuid="e36b62d5-65ed-4151-85c2-8cb97313c8be"/>
+				<textElement markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupo_grupo_ativo}?"Sim":"<span style=\"color:#FF0000;font-weight:bold;\">Não</span>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="50" uuid="5eb5d79c-0292-4dde-b1c4-f91991d6a382"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30"/>
+				</textElement>
+				<text><![CDATA[Não foi encontrado nenhum registro]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
