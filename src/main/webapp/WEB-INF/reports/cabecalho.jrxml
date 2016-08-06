@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cabecalho" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2d189a0b-e0e7-4923-bd4d-a208bb08a39d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from empresa limit 1]]>
+	</queryString>
+	<field name="emp_id" class="java.lang.Long"/>
+	<field name="emp_cidade" class="java.lang.String"/>
+	<field name="emp_cnpj" class="java.lang.String"/>
+	<field name="emp_email" class="java.lang.String"/>
+	<field name="emp_endereco" class="java.lang.String"/>
+	<field name="emp_fone" class="java.lang.String"/>
+	<field name="emp_ie" class="java.lang.String"/>
+	<field name="emp_nomefantasia" class="java.lang.String"/>
+	<field name="emp_razaosocial" class="java.lang.String"/>
+	<field name="emp_uf" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="7b9d6568-2bfb-42ed-bfee-6d80e7e9e7a3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{emp_nomefantasia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="555" height="20" uuid="50cff8f9-d237-4747-b1db-31ac43d5f01a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{emp_razaosocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="182" height="20" uuid="f9e0b3d3-1598-4bbe-a28b-79fd30f8f7da"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Fone: "+$F{emp_fone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="182" height="20" uuid="eec39510-9ee5-4a5e-9f48-d691585d1e6c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["CNPJ: "+$F{emp_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="40" width="373" height="20" uuid="a9b45255-7c3d-4572-ac56-5e2527343123"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Inscrição Estadual: "+$F{emp_ie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="60" width="373" height="20" uuid="326dad12-87df-4058-b22f-f091e02096e1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["E-mail: "+$F{emp_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="80" width="555" height="20" uuid="625affa6-c71a-4c1b-9858-81c969e07ff9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Endereço: "+$F{emp_endereco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

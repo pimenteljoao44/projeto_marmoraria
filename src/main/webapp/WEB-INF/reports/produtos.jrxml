@@ -3,6 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ricardo/NetBeansProjects/VendasUnipar/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      produto."prod_ativo" AS produto_prod_ativo,
@@ -36,7 +39,16 @@ FROM
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="53" splitType="Stretch">
+		<band height="87" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="87" uuid="d123ae82-eddf-4a85-9d84-222ac241d559"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cabecalho.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="53">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="53" uuid="5b03ff7f-edce-4936-bf0c-bc6f2bb39e5c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -45,7 +57,7 @@ FROM
 				<text><![CDATA[RELATORIO DE PRODUTOS CADASTRADOS]]></text>
 			</staticText>
 		</band>
-	</title>
+	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vendaPorPeriodo_itens" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="56b3d54b-100d-41c0-88a1-788bfdaebc51">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ven_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.prod_id, p.prod_nome, i.item_preco,
+item_quantidade, (i.item_preco*item_quantidade) as item_subtotal
+from itemvenda as i
+inner join produto as p on p.prod_id=i.prod_id
+where i.ven_id=$P{ven_id}
+order by p.prod_nome]]>
+	</queryString>
+	<field name="prod_id" class="java.lang.Long"/>
+	<field name="prod_nome" class="java.lang.String"/>
+	<field name="item_preco" class="java.math.BigDecimal"/>
+	<field name="item_quantidade" class="java.math.BigDecimal"/>
+	<field name="item_subtotal" class="java.math.BigDecimal"/>
+	<variable name="qtd_produto" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{qtd_produto}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="23" height="20" backcolor="#ECECEC" uuid="a216ff62-3567-425e-822e-4f0fd19aac97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="23" y="0" width="232" height="20" backcolor="#ECECEC" uuid="8eb61ca6-ac2a-4d16-bf86-88a222b8a9bb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="255" y="0" width="100" height="20" backcolor="#ECECEC" uuid="985384da-039d-450d-88ec-e940612a2e6e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="0" width="76" height="20" backcolor="#ECECEC" uuid="9d6ea363-d6b2-45bf-80bc-beb46b12716c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="431" y="0" width="64" height="20" backcolor="#ECECEC" uuid="a482c5fe-0234-4028-b64b-9c6a2c729e32"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="23" height="20" uuid="eb692c39-5bae-4611-b70b-4e7a7f871e87"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prod_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="255" y="0" width="100" height="20" uuid="46a8964a-26b4-4b5b-ac88-86a790d5223c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{item_preco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="76" height="20" uuid="19731699-be0d-4279-9df5-8abe5341a0bd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{item_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="431" y="0" width="64" height="20" uuid="8fa53bf8-e3a6-462b-9dc6-d071d310effa"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{item_subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="23" y="0" width="232" height="20" uuid="c18138ec-3bf2-4599-a256-b0652635f783"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prod_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="319670be-04b5-45a4-99d5-f558f376cd1c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Quantidade de itens: "+$V{qtd_produto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
