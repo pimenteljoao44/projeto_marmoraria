@@ -41,6 +41,9 @@ public class Produto implements Serializable {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
+    @Column(name = "item_quantidade", nullable = false)
+    private BigDecimal quantidade = BigDecimal.ZERO;
+
     @ManyToOne
     @JoinColumn(name = "os_id")
     private OrdemDeServico ordemDeServico;
@@ -132,6 +135,14 @@ public class Produto implements Serializable {
         this.ordemDeServico = ordemDeServico;
     }
 
+    public BigDecimal getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(BigDecimal quantidade) {
+        this.quantidade = quantidade;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -154,7 +165,11 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return id.toString();
+        if (id != null) {
+            return id.toString();
+        } else {
+            return "Produto sem ID";
+        }
     }
 
 }

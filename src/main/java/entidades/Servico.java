@@ -21,6 +21,9 @@ public class Servico implements Serializable {
     @Column(name = "valor_servico")
     private BigDecimal valor;
 
+    @Column(name = "item_quantidade", nullable = false)
+    private BigDecimal quantidade = BigDecimal.ZERO;
+
     @ManyToMany(mappedBy = "servicos")
     private List<OrdemDeServico> ordemsDeServicos;
     @ManyToOne()
@@ -50,6 +53,21 @@ public class Servico implements Serializable {
         this.valor = valor;
     }
 
+    public BigDecimal getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(BigDecimal quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
 
     public List<OrdemDeServico> getOrdemsDeServicos() {
         return ordemsDeServicos;
