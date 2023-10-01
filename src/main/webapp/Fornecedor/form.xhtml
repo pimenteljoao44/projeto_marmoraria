@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form rendered="#{fornecedorControle.fornecedor!=null}">
+        <p:panel id="painelForm" header="Formulario de cadastro">
+
+            <p:selectOneRadio value="#{fornecedorControle.tipoPessoa}">
+                <f:selectItem itemValue="PF" itemLabel="Pessoa Fisica"/>
+                <f:selectItem itemValue="PJ" itemLabel="Pessoa Juridica"/>
+                <f:ajax event="change" 
+                        listener="#{fornecedorControle.criaFornecedor()}"
+                        render="painelForm"/>
+            </p:selectOneRadio>
+
+            <p:panelGrid layout="grid" columns="2">
+                <p:outputLabel value="Nome:" for="nome"/>
+                <p:inputText id="nome" value="#{fornecedorControle.fornecedor.pessoa.nome}"
+                             required="true"
+                             requiredMessage="O campo nome é obrigatório"/>
+
+                <p:outputLabel value="Fone:" for="fone"/>
+                <p:inputText id="fone" value="#{fornecedorControle.fornecedor.contato}"/>
+
+
+                <p:outputLabel value="CPF:" for="cpf" 
+                               rendered="#{fornecedorControle.tipoPessoa=='PF'}"/>
+                <p:inputMask mask="999.999.999-99"
+                             id="cpf"
+                             value="#{fornecedorControle.pessoaFisica.cpf}"
+                             rendered="#{fornecedorControle.tipoPessoa=='PF'}"/>
+
+                <p:outputLabel value="RG:" for="rg"
+                               rendered="#{fornecedorControle.tipoPessoa=='PF'}"/>
+                <p:inputText id="rg" rendered="#{fornecedorControle.tipoPessoa=='PF'}"
+                             value="#{fornecedorControle.pessoaFisica.rg}"/>
+
+                <p:outputLabel value="CNPJ:" for="cnpj"
+                               rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                <p:inputMask id="cnpj" mask="99.999.999/9999-99"
+                             value="#{fornecedorControle.pessoaJuridica.cnpj}"
+                             rendered="#{fornecedorControle.tipoPessoa=='PJ'}"/>
+
+            </p:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton value="Salvar"
+                                 action="#{fornecedorControle.salvar()}"
+                                 ajax="false"/>
+            </f:facet>
+        </p:panel>
+    </h:form>
+</html>

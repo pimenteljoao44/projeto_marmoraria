@@ -11,6 +11,12 @@
     <class>entidades.ItemVenda</class>
     <class>entidades.Usuario</class>
     <class>entidades.Empresa</class>
+    <class>entidades.Fornecedor</class>
+    <class>entidades.Servico</class>
+    <class>entidades.Cliente</class>
+    <class>entidades.OrdemDeServico</class>
+    <class>entidades.Funcionario</class>
+
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/vendasunipar"/>
@@ -20,6 +26,8 @@
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.use_sql_comments" value="true"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgresPlusDialect"/>
     </properties>
   </persistence-unit>
 </persistence>

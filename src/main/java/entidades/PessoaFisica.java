@@ -22,7 +22,6 @@ import javax.persistence.Table;
 public class PessoaFisica extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Column(name = "pes_cpf", nullable = false, unique = true)
     private String cpf;
     @Column(name = "pes_rg", nullable = false)

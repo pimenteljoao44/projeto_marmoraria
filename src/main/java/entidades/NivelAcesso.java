@@ -10,8 +10,8 @@ package entidades;
  * @author ricardo
  */
 public enum NivelAcesso {
-    ADMIN("Administrador"),
-    USER("Usuário");
+    ADMIN("Gerente"),
+    USER("Funcionário");
 
     private final String descricao;
 

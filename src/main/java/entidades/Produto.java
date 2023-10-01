@@ -7,14 +7,8 @@ package entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -42,6 +36,15 @@ public class Produto implements Serializable {
     @ManyToOne
     @JoinColumn(name = "grupo_id", nullable = false)
     private Grupo grupo;
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
+
+    @ManyToOne
+    @JoinColumn(name = "os_id")
+    private OrdemDeServico ordemDeServico;
+
 
     public void baixarEstoque(BigDecimal quantidade) throws Exception {
         if (estoque.compareTo(quantidade) >= 0) {
@@ -111,6 +114,22 @@ public class Produto implements Serializable {
 
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public OrdemDeServico getOrdemDeServico() {
+        return ordemDeServico;
+    }
+
+    public void setOrdemDeServico(OrdemDeServico ordemDeServico) {
+        this.ordemDeServico = ordemDeServico;
     }
 
     @Override

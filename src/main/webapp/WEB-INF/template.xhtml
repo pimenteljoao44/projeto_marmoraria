@@ -24,7 +24,7 @@ and open the template in the editor.
         <h:form>
             <p:menubar>
                 <p:submenu label="Cadastros">
-                    <p:menuitem value="Pessoa" url="/app/pessoa/list.xhtml"/>
+                    <p:menuitem value="Fornecedor" url="/app/Fornecedor/list.xhtml"/>
                     <p:menuitem value="Grupo" url="/app/grupo/list.xhtml"/>
                     <p:menuitem value="Produto" url="/app/produto/list.xhtml"/>
                     <p:menuitem value="Usuário" url="/app/usuario/list.xhtml"/>
@@ -49,7 +49,7 @@ and open the template in the editor.
         <p:panel>
         <ui:insert name="conteudo"/>
         <f:facet name="footer">
-            <h:outputText value="Usuario: #{loginControle.usuario}"/>
+            <h:outputText value="Usuario: #{loginControle.usuario.login}"/>
         </f:facet>
         </p:panel>
 

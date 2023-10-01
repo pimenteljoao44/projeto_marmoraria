@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="10e87d27-2639-40af-a6e5-58b4535af909" name="vendasunipar Mapping">
+      <data-sources db="9e27bf07-3768-499a-a1f4-52d7a8082e67" />
+      <scope>
+        <node kind="database" qname="vendasunipar" />
+      </scope>
+    </mapping>
+  </component>
+</project>
