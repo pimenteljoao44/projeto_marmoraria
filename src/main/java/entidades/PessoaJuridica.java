@@ -18,9 +18,9 @@ import javax.persistence.Table;
 @Table(name = "pessoa_juridica")
 public class PessoaJuridica extends Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "pes_cnpj", nullable = false, unique = true)
+    @Column(name = "pes_cnpj", unique = true)
     private String cnpj;
-    @Column(name = "pes_ie", nullable = false)
+    @Column(name = "pes_ie")
     private String ie;
 
     public String getCnpj() {

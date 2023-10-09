@@ -28,8 +28,8 @@ and open the template in the editor.
         <h:panelGroup>
             <p:autoComplete id="cliente"
                             value="#{ordemDeServicoControle.ordemDeServico.cliente}"
-                            converter="#{clienteControle.converter()}"
-                            completeMethod="#{clienteControle.clienteAutoComplete(ordemDeServicoControle.ordemDeServico.cliente.nome)}"
+                            converter="#{pessoaControle.converter()}"
+                            completeMethod="#{pessoaControle.pessoaAutoComplete}"
                             var="cliente"
                             itemValue="#{cliente}"
                             itemLabel="#{cliente.nome}"

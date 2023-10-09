@@ -16,13 +16,13 @@ public class Servico implements Serializable {
     private Integer id;
 
     @Column(name = "descricao_servico")
-    private String descricao;
+    private String servicoDescricao;
 
     @Column(name = "valor_servico")
-    private BigDecimal valor;
+    private BigDecimal servicoValor;
 
     @Column(name = "item_quantidade", nullable = false)
-    private BigDecimal quantidade = BigDecimal.ZERO;
+    private BigDecimal servicoQuantidade = BigDecimal.ZERO;
 
     @ManyToMany(mappedBy = "servicos")
     private List<OrdemDeServico> ordemsDeServicos;
@@ -37,28 +37,28 @@ public class Servico implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getServicoDescricao() {
+        return servicoDescricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setServicoDescricao(String servicoDescricao) {
+        this.servicoDescricao = servicoDescricao;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public BigDecimal getServicoValor() {
+        return servicoValor;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setServicoValor(BigDecimal servicoValor) {
+        this.servicoValor = servicoValor;
     }
 
-    public BigDecimal getQuantidade() {
-        return quantidade;
+    public BigDecimal getServicoQuantidade() {
+        return servicoQuantidade;
     }
 
-    public void setQuantidade(BigDecimal quantidade) {
-        this.quantidade = quantidade;
+    public void setServicoQuantidade(BigDecimal servicoQuantidade) {
+        this.servicoQuantidade = servicoQuantidade;
     }
 
     public Funcionario getFuncionario() {
@@ -77,26 +77,5 @@ public class Servico implements Serializable {
         this.ordemsDeServicos = ordemsDeServicos;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Servico servico = (Servico) o;
-        return Objects.equals(id, servico.id) && Objects.equals(descricao, servico.descricao) && Objects.equals(valor, servico.valor) && Objects.equals(ordemsDeServicos, servico.ordemsDeServicos);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, descricao, valor, ordemsDeServicos);
-    }
-
-    @Override
-    public String toString() {
-        return "Servico{" +
-                "id=" + id +
-                ", descricao='" + descricao + '\'' +
-                ", valor=" + valor +
-                ", odemsDeServicos=" + ordemsDeServicos +
-                '}';
-    }
 }

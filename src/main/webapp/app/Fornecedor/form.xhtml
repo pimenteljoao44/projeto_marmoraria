@@ -5,50 +5,83 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:form rendered="#{fornecedorControle.fornecedor!=null}">
-        <p:panel id="painelForm" header="Formulario de cadastro de fornecedor">
+<h:form rendered="#{fornecedorControle.fornecedor != null}">
+    <p:panel id="painelForm" header="Formulário de cadastro de fornecedor">
 
-            <p:selectOneRadio value="#{fornecedorControle.tipoPessoa}">
-                <f:selectItem itemValue="PF" itemLabel="Pessoa Fisica"/>
-                <f:selectItem itemValue="PJ" itemLabel="Pessoa Juridica"/>
-                <f:ajax event="change" 
-                        listener="#{fornecedorControle.criaFornecedor()}"
-                        render="painelForm"/>
-            </p:selectOneRadio>
+        <p:selectOneRadio value="#{fornecedorControle.tipoPessoa}">
+            <f:selectItem itemValue="PF" itemLabel="Pessoa Física" />
+            <f:selectItem itemValue="PJ" itemLabel="Pessoa Jurídica" />
+            <f:ajax event="change" listener="#{fornecedorControle.criaFornecedor()}" render="painelForm" />
+        </p:selectOneRadio>
 
-            <p:panelGrid layout="grid" columns="2">
-                <p:outputLabel value="Nome:" for="nome"/>
-                <p:inputText id="nome" value="#{fornecedorControle.fornecedor.nome}"
-                             required="true"
-                             requiredMessage="O campo nome é obrigatório"/>
+        <p:panelGrid layout="grid" columns="2">
+            <p:outputLabel value="Nome:" for="nome" />
+            <p:inputText id="nome" value="#{fornecedorControle.fornecedor.nome}" required="true"
+                         requiredMessage="O campo nome é obrigatório" />
 
-                <p:outputLabel value="Fone:" for="fone"/>
-                <p:inputText id="fone" value="#{fornecedorControle.fornecedor.contato}"/>
+            <p:outputLabel value="Fone:" for="fone" />
+            <p:inputText id="fone" value="#{fornecedorControle.fornecedor.contato}" />
 
-                <p:outputLabel value="CPF:" for="cpf" 
-                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
-                <p:inputMask mask="999.999.999-99"
-                             id="cpf"
-                             value="#{fornecedorControle.fornecedor.pessoaFisica.cpf}"
-                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
 
-                <p:outputLabel value="RG:" for="rg"
-                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
-                <p:inputText id="rg" rendered="#{pessoaControle.tipoPessoa=='PF'}"
-                             value="#{fornecedorControle.fornecedor.pessoaFisica.rg}"/>
+            <p:outputLabel value="CPF:" for="cpf" rendered="#{fornecedorControle.tipoPessoa == 'PF'}" />
+            <p:inputMask mask="999.999.999-99" id="cpf"
+                         value="#{fornecedorControle.fornecedor.pessoaFisica.cpf}"
+                         rendered="#{fornecedorControle.tipoPessoa == 'PF'}" />
 
-                <p:outputLabel value="CNPJ:" for="cnpj"
-                               rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
-                <p:inputMask id="cnpj" mask="99.999.999/9999-99"
-                             value="#{fornecedorControle.fornecedor.pessoaJuridica.cnpj}"
-                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+            <p:outputLabel value="RG:" for="rg" rendered="#{fornecedorControle.tipoPessoa == 'PF'}" />
+            <p:inputText id="rg" rendered="#{fornecedorControle.tipoPessoa == 'PF'}"
+                         value="#{fornecedorControle.fornecedor.pessoaFisica.rg}" />
 
-            </p:panelGrid>
-            <f:facet name="footer">
-                <p:commandButton value="Salvar"
-                                 action="#{fornecedorControle.salvar()}"
-                                 ajax="false"/>
-            </f:facet>
-        </p:panel>
-    </h:form>
+            <p:outputLabel value="CNPJ:" for="cnpj" rendered="#{fornecedorControle.tipoPessoa == 'PJ'}" />
+            <p:inputMask id="cnpj" mask="99.999.999/9999-99"
+                         value="#{fornecedorControle.fornecedor.pessoaJuridica.cnpj}"
+                         rendered="#{fornecedorControle.tipoPessoa == 'PJ'}" />
+
+            <p:outputLabel value="IE:" for="ie" rendered="#{fornecedorControle.tipoPessoa == 'PJ'}" />
+            <p:inputText value="#{fornecedorControle.fornecedor.pessoaJuridica.ie}" id="ie"
+                         rendered="#{fornecedorControle.tipoPessoa == 'PJ'}" />
+        </p:panelGrid>
+        <f:facet name="footer">
+            <p:commandButton value="Salvar" action="#{fornecedorControle.salvar()}" update="@form" />
+        </f:facet>
+
+        <p:panelGrid columns="5" layout="grid">
+            <p:outputLabel value="Produto:" for="produto" />
+            <h:panelGroup>
+                <p:autoComplete id="produto"
+                                completeMethod="#{fornecedorControle.produtoAutoComplete}"
+                                converter="#{produtoControle.converter()}"
+                                value="#{fornecedorControle.produtoSelecionado}"
+                                var="produto"
+                                itemLabel="#{produto.nome}"
+                                itemValue="#{produto}" />
+                <p:focus for="produto" rendered="#{fornecedorControle.tipoPessoa == 'PJ'}" />
+            </h:panelGroup>
+
+            <p:outputLabel value="Quantidade:" for="qtd" />
+            <p:inputText id="qtd" value="#{fornecedorControle.produtoSelecionado.quantidade}">
+            </p:inputText>
+            <p:commandButton value="Adicionar" action="#{fornecedorControle.adicionarProduto()}" ajax="false" />
+        </p:panelGrid>
+
+        <p:dataTable value="#{fornecedorControle.fornecedor.produtos}" var="item">
+            <p:column headerText="Produto">
+                <h:outputText value="#{item.nome}" />
+            </p:column>
+            <p:column headerText="Preço">
+                <h:outputText value="#{item.preco}">
+                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencySymbol="R$" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Quantidade">
+                <p:inputText value="#{item.quantidade}">
+                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                </p:inputText>
+            </p:column>
+            <p:column headerText="Remover">
+                <p:commandButton value="Remover" action="#{fornecedorControle.removerProduto(item)}" ajax="false" />
+            </p:column>
+        </p:dataTable>
+    </p:panel>
+</h:form>
 </html>

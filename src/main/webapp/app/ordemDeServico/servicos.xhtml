@@ -19,13 +19,13 @@ and open the template in the editor.
                             value="#{ordemDeServicoControle.servico}"
                             converter="#{servicoControle.converter()}"
                             var="servico"
-                            itemLabel="#{servico.descricao}"
+                            itemLabel="#{servico.servicoDescricao}"
                             itemValue="#{servico}"/>
-            <p:focus for="produto" rendered="#{ordemDeServicoControle.ordemDeServico.cliente!=null}"/>
+            <p:focus for="servico" rendered="#{ordemDeServicoControle.ordemDeServico.cliente!=null}"/>
         </h:panelGroup>
 
-        <p:outputLabel value="Quantidade:" for="qtd"/>
-        <p:inputText id="qtd" value="#{ordemDeServicoControle.servico.quantidade}">
+        <p:outputLabel value="Quantidade:" for="qtdServico"/>
+        <p:inputText id="qtdServico" value="#{ordemDeServicoControle.servico.servicoQuantidade}">
             <f:convertNumber minFractionDigits="2"
                              maxFractionDigits="2"/>
         </p:inputText>
@@ -36,11 +36,11 @@ and open the template in the editor.
 
     <p:dataTable value="#{ordemDeServicoControle.ordemDeServico.servicos}"
                  var="item">
-        <p:column headerText="Produto">
-            <h:outputText value="#{item.descricao}"/>
+        <p:column headerText="Serviço">
+            <h:outputText value="#{item.servicoDescricao}"/>
         </p:column>
         <p:column headerText="Valor">
-            <h:outputText value="#{item.valor}">
+            <h:outputText value="#{item.servicoValor}">
                 <f:convertNumber minFractionDigits="2"
                                  maxFractionDigits="2"
                                  type="currency"
@@ -48,16 +48,14 @@ and open the template in the editor.
             </h:outputText>
         </p:column>
         <p:column headerText="Quantidade">
-            <p:inputText value="#{item.quantidade}">
+            <p:inputText value="#{item.servicoQuantidade}">
                 <f:convertNumber minFractionDigits="2"
                                  maxFractionDigits="2"/>
-                <f:ajax event="keyup" listener="#{ordemDeServicoControle.ordemDeServico.calculaTotal()}"
-                        render=":vform:total"/>
             </p:inputText>
         </p:column>
         <p:column headerText="Remover">
             <p:commandButton value="Remover"
-                             action="#{ordemDeServicoControle.removeItem(item)}"
+                             action="#{ordemDeServicoControle.removerServico(item)}"
                              ajax="false"/>
         </p:column>
 

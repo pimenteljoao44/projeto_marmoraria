@@ -35,5 +35,4 @@ public class ConverterGenerico implements Converter, Serializable {
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
         return o.toString();
     }
-
 }

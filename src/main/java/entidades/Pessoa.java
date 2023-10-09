@@ -21,13 +21,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pessoa")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa implements Serializable {
+public class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pes_id")
-    private Long id;
+    private Integer id;
     @Column(name = "pes_nome", nullable = false)
     private String nome;
     @Column(name = "pes_fone")
@@ -35,11 +34,11 @@ public abstract class Pessoa implements Serializable {
     @Column(name = "pes_endereco")
     private String endereco;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

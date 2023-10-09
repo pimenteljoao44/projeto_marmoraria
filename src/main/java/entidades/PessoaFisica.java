@@ -6,6 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ import javax.persistence.Table;
 public class PessoaFisica extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Column(name = "pes_cpf", nullable = false, unique = true)
+    @Column(name = "pes_cpf", unique = true)
     private String cpf;
-    @Column(name = "pes_rg", nullable = false)
+    @Column(name = "pes_rg", unique = true)
     private String rg;
 
     public String getCpf() {

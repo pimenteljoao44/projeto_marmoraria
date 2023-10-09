@@ -29,7 +29,7 @@ public class OrdemDeServico implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cli_id")
-    private Cliente cliente;
+    private Pessoa cliente;
 
     @Column(name = "os_val_total")
     private BigDecimal valorTotal;
@@ -66,13 +66,20 @@ public class OrdemDeServico implements Serializable {
 
     public void addServico(Servico item) throws Exception {
         if (!servicos.contains(item)) {
-            item.setValor(item.getValor());
+            item.setServicoValor(item.getServicoValor());
             servicos.add(item);
             calculaTotal();
         } else {
-            throw new Exception("O produto "
-                    + item.getDescricao()
+            throw new Exception("O servico "
+                    + item.getServicoDescricao()
                     + " já está adicionado na ordem de serviço");
+        }
+    }
+
+    public void removerServico(Servico item) {
+        if (servicos.contains(item)) {
+            servicos.remove(item);
+            calculaTotal();
         }
     }
 
@@ -83,6 +90,9 @@ public class OrdemDeServico implements Serializable {
     }
 
     public void calculaTotal() {
+        if (desconto == null) {
+            desconto = BigDecimal.ZERO;
+        }
         if (desconto == null || desconto.compareTo(valorTotal) >= 0) {
             desconto = BigDecimal.ZERO;
         }
@@ -99,7 +109,7 @@ public class OrdemDeServico implements Serializable {
         }
         valorTotal = BigDecimal.ZERO;
         for (Servico s : servicos) {
-            valorTotal = valorTotal.add(s.getValor().multiply(s.getQuantidade()));
+            valorTotal = valorTotal.add(s.getServicoValor().multiply(s.getServicoQuantidade()));
         }
         valorTotal = valorTotal.subtract(desconto);
 
@@ -145,11 +155,11 @@ public class OrdemDeServico implements Serializable {
         this.descricao = descricao;
     }
 
-    public Cliente getCliente() {
+    public Pessoa getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Pessoa cliente) {
         this.cliente = cliente;
     }
 
@@ -190,23 +200,25 @@ public class OrdemDeServico implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrdemDeServico that = (OrdemDeServico) o;
-        return Objects.equals(id, that.id) && Objects.equals(dataCriacao, that.dataCriacao) && Objects.equals(dataFinalizacao, that.dataFinalizacao) && Objects.equals(status, that.status) && Objects.equals(cliente, that.cliente) && Objects.equals(valorTotal, that.valorTotal) && Objects.equals(servicos, that.servicos) && Objects.equals(produtos, that.produtos);
+        return Objects.equals(id, that.id) && Objects.equals(dataCriacao, that.dataCriacao) && Objects.equals(dataFinalizacao, that.dataFinalizacao) && Objects.equals(status, that.status) && Objects.equals(descricao, that.descricao) && Objects.equals(cliente, that.cliente) && Objects.equals(valorTotal, that.valorTotal) && Objects.equals(desconto, that.desconto) && Objects.equals(servicos, that.servicos) && Objects.equals(produtos, that.produtos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dataCriacao, dataFinalizacao, status, cliente, valorTotal, servicos, produtos);
+        return Objects.hash(id, dataCriacao, dataFinalizacao, status, descricao, cliente, valorTotal, desconto, servicos, produtos);
     }
 
     @Override
     public String toString() {
-        return "OdemDeServico{" +
+        return "OrdemDeServico{" +
                 "id=" + id +
                 ", dataCriacao=" + dataCriacao +
                 ", dataFinalizacao=" + dataFinalizacao +
                 ", status='" + status + '\'' +
+                ", descricao='" + descricao + '\'' +
                 ", cliente=" + cliente +
                 ", valorTotal=" + valorTotal +
+                ", desconto=" + desconto +
                 ", servicos=" + servicos +
                 ", produtos=" + produtos +
                 '}';

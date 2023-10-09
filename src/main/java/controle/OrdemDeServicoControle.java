@@ -33,8 +33,8 @@ public class OrdemDeServicoControle implements Serializable {
 
     public void addItem() {
         try {
-            ordemDeServico.addItem(produto);
             produto = new Produto();
+            ordemDeServico.addItem(produto);
         } catch (Exception ex) {
             ex.printStackTrace();
             FacesMessage message
@@ -57,6 +57,10 @@ public class OrdemDeServicoControle implements Serializable {
 
     public void removeItem(Produto i) {
         ordemDeServico.removeItem(i);
+    }
+
+    public void removerServico(Servico i){
+        ordemDeServico.removerServico(i);
     }
 
     public ConverterGenerico converter() {
