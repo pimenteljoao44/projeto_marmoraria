@@ -1,5 +1,7 @@
 package entidades;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -33,7 +35,10 @@ public class Fornecedor implements Serializable {
     @OneToMany(mappedBy ="fornecedor" )
     private List<Produto> produtos;
 
-
+    public Fornecedor() {
+        pessoaFisica = new PessoaFisica();
+        pessoaJuridica = new PessoaJuridica();
+    }
     public Integer getId() {
         return id;
     }

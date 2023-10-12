@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
 import java.io.Serializable;
@@ -44,4 +39,33 @@ public class PessoaFisica extends Pessoa implements Serializable {
         this.rg = rg;
     }
 
+    public PessoaFisica() {
+    }
+
+    public PessoaFisica(String cpf, String rg) {
+        this.cpf = cpf;
+        this.rg = rg;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PessoaFisica that = (PessoaFisica) o;
+        return Objects.equals(cpf, that.cpf) && Objects.equals(rg, that.rg);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), cpf, rg);
+    }
+
+    @Override
+    public String toString() {
+        return "PessoaFisica{" +
+                "cpf='" + cpf + '\'' +
+                ", rg='" + rg + '\'' +
+                '}';
+    }
 }

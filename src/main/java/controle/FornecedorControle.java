@@ -5,6 +5,7 @@ import entidades.*;
 import facade.FornecedorFacade;
 import facade.PessoaFacade;
 import facade.ProdutoFacade;
+import org.jboss.weld.util.LazyValueHolder;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class FornecedorControle implements Serializable {
+public class FornecedorControle implements  Serializable {
 
     @Inject
     private FornecedorFacade fornecedorFacade;
@@ -57,17 +58,20 @@ public class FornecedorControle implements Serializable {
     }
 
     public void criaFornecedor() {
-        if (tipoPessoa.equals("PF")) {
-            fornecedor = new Fornecedor();
-            produtoSelecionado = new Produto();
-            fornecedor.setPessoa(new PessoaFisica());
-            fornecedor.setPessoaFisica(new PessoaFisica());
-        } else if (tipoPessoa.equals("PJ")) {
-            fornecedor = new Fornecedor();
-            produtoSelecionado = new Produto();
-            fornecedor.setPessoa(new PessoaJuridica());
-            fornecedor.setPessoaJuridica(new PessoaJuridica());
+        fornecedor = new Fornecedor();
+        produtoSelecionado = new Produto();
 
+        if (tipoPessoa.equals("PF")) {
+            PessoaFisica pessoaFisica = new PessoaFisica();
+
+            fornecedor.setPessoa(pessoaFisica);
+            fornecedor.setPessoaFisica(pessoaFisica);
+            fornecedor.setPessoaJuridica(null);
+        } else if (tipoPessoa.equals("PJ")) {
+            PessoaJuridica pessoaJuridica = new PessoaJuridica();
+            fornecedor.setPessoa(pessoaJuridica);
+            fornecedor.setPessoaFisica(null);
+            fornecedor.setPessoaJuridica(pessoaJuridica);
         }
     }
 
@@ -126,6 +130,11 @@ public class FornecedorControle implements Serializable {
     }
     public String salvar() {
         try {
+            if (fornecedor == null) {
+                fornecedor = new Fornecedor();
+                criaFornecedor();
+            }
+
             fornecedorFacade.salvar(fornecedor);
             return "list?faces-redirect=true";
         } catch (Exception ex) {
