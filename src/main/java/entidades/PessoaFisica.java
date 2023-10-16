@@ -63,9 +63,6 @@ public class PessoaFisica extends Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return "PessoaFisica{" +
-                "cpf='" + cpf + '\'' +
-                ", rg='" + rg + '\'' +
-                '}';
+        return getId().toString();
     }
 }

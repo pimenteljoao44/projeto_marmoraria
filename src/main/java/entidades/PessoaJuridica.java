@@ -38,6 +38,9 @@ public class PessoaJuridica extends Pessoa implements Serializable {
     public void setIe(String ie) {
         this.ie = ie;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getId().toString();
+    }
 }

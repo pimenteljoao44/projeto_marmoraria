@@ -93,16 +93,17 @@ public class OrdemDeServico implements Serializable {
         if (desconto == null) {
             desconto = BigDecimal.ZERO;
         }
-        if (desconto == null || desconto.compareTo(valorTotal) >= 0) {
-            desconto = BigDecimal.ZERO;
-        }
+
         valorTotal = BigDecimal.ZERO;
-        for (Produto p : produtos) {
-            valorTotal = valorTotal.add(p.getPreco().multiply(p.getQuantidade())).add(calculaServicos());
+
+        if (produtos != null && !produtos.isEmpty()) {
+            for (Produto p : produtos) {
+                valorTotal = valorTotal.add(p.getPreco().multiply(p.getQuantidade())).add(calculaServicos());
+            }
         }
+
         valorTotal = valorTotal.subtract(desconto);
     }
-
     public BigDecimal calculaServicos() {
         if (desconto == null || desconto.compareTo(valorTotal) >= 0) {
             desconto = BigDecimal.ZERO;
