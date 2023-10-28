@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="VendasUnipar" options="-endorseddirs C:\Users\User\unipar_vendas\target/endorsed" />
+      <module name="VendasUnipar" options="-endorseddirs C:\Users\User\Desktop\unipar_vendas\target/endorsed" />
     </option>
   </component>
 </project>

@@ -11,7 +11,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>VENDAS UNIPAR</title>
+        <title>MARMORARIA SÃO CARLOS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
             *{
@@ -24,8 +24,6 @@ and open the template in the editor.
         <h:form>
             <p:menubar>
                 <p:submenu label="Cadastros">
-                    <p:menuitem value="Fornecedor" url="/app/Fornecedor/list.xhtml"/>
-                    <p:menuitem value="Ordem de Serviço" url="/app/ordemDeServico/list.xhtml"/>
                     <p:menuitem value="Grupo" url="/app/grupo/list.xhtml"/>
                     <p:menuitem value="Produto" url="/app/produto/list.xhtml"/>
                     <p:menuitem value="Usuário" url="/app/usuario/list.xhtml"/>
@@ -33,17 +31,6 @@ and open the template in the editor.
                 </p:submenu>
                 <p:submenu label="Movimentos">
                     <p:menuitem value="Venda" url="/app/venda/list.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Relatórios">
-                    <p:submenu label="Cadastrais">
-                        <p:menuitem value="Produto" action="#{relatorioControle.relatorioCadastralProduto()}" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="Gerenciais">
-                        <p:menuitem value="Venda por periodo" url="/app/relatorioVenda/form.xhtml"/>
-                    </p:submenu>
-                </p:submenu>
-                <p:submenu label="Configurações">
-                    <p:menuitem value="Cadastro de empresa" url="/app/empresa/list.xhtml"/>
                 </p:submenu>
                 <p:menuitem value="Sair" action="#{loginControle.logoff()}" ajax="false"/>
             </p:menubar>

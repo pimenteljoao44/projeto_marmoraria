@@ -2,13 +2,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
+
     <ui:composition template="/WEB-INF/template.xhtml">
+        <style>
+            .conteudo {
+                text-align: center;
+            }
+
+            .imagem {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
         
         <ui:define name="conteudo">
-            Página Inicial
+            <div class="conteudo">
+                <h2>Página Inicial</h2>
+                <img class="imagem" src="img/cartaoMarmoraria.jpg" alt="Imagem da Marmoraria"/>
+            </div>
         </ui:define>
-        
     </ui:composition>
     
 </html>

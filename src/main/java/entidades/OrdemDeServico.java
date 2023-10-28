@@ -14,7 +14,6 @@ public class OrdemDeServico implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "os_id")
     private Integer id;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "data_criacao_os")
     private Date dataCriacao = new Date();
