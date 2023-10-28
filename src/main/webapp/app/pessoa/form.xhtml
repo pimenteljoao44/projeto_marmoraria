@@ -32,21 +32,29 @@
                                rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
                 <p:inputMask mask="999.999.999-99"
                              id="cpf"
+                             required="true"
+                             requiredMessage="O campo CPF é obrigatório"
                              value="#{pessoaControle.pessoa.cpf}"
                              rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
 
                 <p:outputLabel value="RG:" for="rg"
+                               required="true"
+                               requiredMessage="O campo RG é obrigatório"
                                rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
                 <p:inputText id="rg" rendered="#{pessoaControle.tipoPessoa=='PF'}"
                              value="#{pessoaControle.pessoa.rg}"/>
 
                 <p:outputLabel value="CNPJ:" for="cnpj"
+                               required="true"
+                               requiredMessage="O campo CNPJ é obrigatório"
                                rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
                 <p:inputMask id="cnpj" mask="99.999.999/9999-99"
                              value="#{pessoaControle.pessoa.cnpj}"
                              rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
 
                 <p:outputLabel value="IE:" for="ie"
+                               required="true"
+                               requiredMessage="O campo IE é obrigatório"
                                rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
                 <p:inputText value="#{pessoaControle.pessoa.ie}"
                              id="ie"

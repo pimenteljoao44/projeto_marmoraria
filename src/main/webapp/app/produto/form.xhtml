@@ -17,11 +17,13 @@ and open the template in the editor.
             <p:panelGrid columns="2" layout="grid">
 
                 <p:outputLabel value="Nome:" for="nome"/>
-                <p:inputText id="nome" 
+                <p:inputText id="nome"
                              value="#{produtoControle.produto.nome}"/>
 
                 <p:outputLabel value="Código:" for="codigo"/>
-                <p:inputText id="codigo" 
+                <p:inputText id="codigo"
+                             required="true"
+                             requiredMessage="O campo Código é obriatório"
                              value="#{produtoControle.produto.codigo}"/>
 
                 <p:outputLabel value="Preço:" for="preco"/>
@@ -40,6 +42,8 @@ and open the template in the editor.
 
                 <p:outputLabel value="Grupo:" for="grupo"/>
                 <p:selectOneMenu id="grupo"
+                                 required="true"
+                                 requiredMessage="O campo Grupo é obrigatório"
                                  value="#{produtoControle.produto.grupo}"
                                  converter="#{grupoControle.converter()}">
 

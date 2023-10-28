@@ -22,6 +22,8 @@ and open the template in the editor.
                 
                 <p:outputLabel value="Grupo pai:" for="grupoPai"/>
                 <p:selectOneMenu id="grupoPai"
+                                 required="true"
+                                 requiredMessage="O campo Grupo pai é obrigatório"
                                  value="#{grupoControle.grupo.grupoPai}"
                                  converter="#{grupoControle.converter()}">
                     

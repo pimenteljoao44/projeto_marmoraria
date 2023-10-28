@@ -18,16 +18,22 @@ and open the template in the editor.
 
                 <p:outputLabel value="Nome fantasia:" for="nome"/>
                 <p:inputText id="nome"
+                             required="true"
+                             requiredMessage="O compo Nome fantasia é obrigatório"
                              value="#{empresaControle.empresa.nomeFantasia}"/>
                 <p:outputLabel value="Razão social:" for="razao"/>
-                <p:inputText id="razao" 
+                <p:inputText id="razao"
+                             required="true"
+                             requiredMessage="O compo Razão social é obrigatório"
                              value="#{empresaControle.empresa.razaoSocial}"/>
                 <p:outputLabel value="CNPJ:" for="cnpj"/>
-                <p:inputText id="cnpj" 
+                <p:inputText id="cnpj"
                              value="#{empresaControle.empresa.cnpj}"
+                             required="true"
                              requiredMessage="O campo cnpj é obrigatório"/>
                 <p:outputLabel value="IE:" for="ie"/>
-                <p:inputText id="ie" 
+                <p:inputText id="ie"
+                             required="true"
                              value="#{empresaControle.empresa.ie}"
                              requiredMessage="O campo IE é obrigatório"/>
                 <p:outputLabel value="Fone:" for="fone"/>

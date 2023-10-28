@@ -21,7 +21,9 @@ and open the template in the editor.
                              value="#{usuarioControle.usuario.nome}"/>
                 
                 <p:outputLabel value="Login:" for="login"/>
-                <p:inputText id="login" 
+                <p:inputText id="login"
+                             required="true"
+                             requiredMessage="O campo Login é obrigatório"
                              value="#{usuarioControle.usuario.login}"/>
                 
                 <p:outputLabel value="Senha:" for="senha"/>
@@ -29,7 +31,9 @@ and open the template in the editor.
                              value="#{usuarioControle.usuario.senha}"/>
                 
                 <p:outputLabel value="Nível acesso:" for="nivel"/>
-                <p:selectOneMenu id="nivel" value="#{usuarioControle.usuario.nivelAcesso}">
+                <p:selectOneMenu id="nivel" value="#{usuarioControle.usuario.nivelAcesso}"
+                                 required="true"
+                                 requiredMessage="O nível de acesso é obrigaatório">
                     <f:selectItems value="#{usuarioControle.niveisAcesso}"
                                    var="nivel"
                                    itemValue="#{nivel}"
