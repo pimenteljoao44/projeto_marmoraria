@@ -13,7 +13,7 @@ and open the template in the editor.
 
     <h:form rendered="#{grupoControle.grupo!=null}">
         
-        <p:panel header="Formulário de cadastro">
+        <p:panel header="Formulário de cadastro de grupo de produtos">
             <p:panelGrid columns="2" layout="grid">
                 
                 <p:outputLabel value="Nome:" for="nome"/>
@@ -22,8 +22,6 @@ and open the template in the editor.
                 
                 <p:outputLabel value="Grupo pai:" for="grupoPai"/>
                 <p:selectOneMenu id="grupoPai"
-                                 required="true"
-                                 requiredMessage="O campo Grupo pai é obrigatório"
                                  value="#{grupoControle.grupo.grupoPai}"
                                  converter="#{grupoControle.converter()}">
                     
