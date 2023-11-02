@@ -10,6 +10,7 @@ import entidades.Grupo;
 import facade.GrupoFacade;
 import java.io.Serializable;
 import java.util.List;
+import utils.JsfUtil;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -52,8 +53,14 @@ public class GrupoControle implements Serializable {
     }
 
     public String excluir(Grupo g) {
-        grupoFacade.excluir(g);
-        return "list?faces-redirect=true";
+        try {
+            grupoFacade.excluir(g);
+            return "list?faces-redirect=true";
+        }catch (Exception e){
+            JsfUtil.addErrorMessage("Não é possivel excluir o grupo "+g.getNome()+
+                    "pois ele está relacionado a uma venda.");
+            return null;
+        }
     }
 
     public List<Grupo> getListagem() {

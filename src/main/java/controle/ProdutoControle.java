@@ -11,6 +11,7 @@ import entidades.Produto;
 import facade.ProdutoFacade;
 import java.io.Serializable;
 import java.util.List;
+import utils.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -18,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.RollbackException;
 
 /**
  *
@@ -55,8 +57,14 @@ public class ProdutoControle implements Serializable {
     }
 
     public String excluir(Produto p) {
-        produtoFacade.excluir(p);
-        return "list?faces-redirect=true";
+        try {
+            produtoFacade.excluir(p);
+            return "list?faces-redirect=true";
+        } catch (RollbackException e) {
+           JsfUtil.addErrorMessage("Não é possivel excluir o produto " +p.getNome()+
+                   " pois ele está relacionado com uma venda");
+            return null;
+        }
     }
 
     public List<Produto> getListagem() {
